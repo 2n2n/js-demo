@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>Document</title>
+        <style>
+            html, body {
+                height: 100%;
+                padding: 0px;
+                margin: 0px;
+
+            }
+            div {
+                height: 50%;
+            }
+            #red {
+                background-color: red;
+            }
+            #blue {
+                background-color: blue;
+            }
+
+            .active {
+                background-color: pink !important;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="red"></div>
+        <div id="blue"></div>
+
+        <footer>
+            <script>
+                // select all <div> elements
+                var elements = document.getElementsByTagName('div');
+
+                // iterate thru all the elements
+                for (var indx = 0; indx < elements.length; indx++) {
+                    // toggle elements via index from HTMLCollection
+                    toggle(elements[indx]); // function toggle was called
+                } 
+
+                // this is where the magic begins
+                function toggle(el) {
+                    // events reference found here:
+                    // https://developer.mozilla.org/en-US/docs/Web/Events
+
+                    // we bind events to the element that was passed
+                    el.onmouseenter = function () {
+                        // check when element is hovered, check the next element if it's a <div>
+                        if (this.nextElementSibling instanceof HTMLDivElement === true) {
+                            this.nextElementSibling.className = "active";
+                        }
+                        else { // else we will manipulate the previous <div> element instead of the next one.
+                            this.previousElementSibling.className = "active";
+                        }
+                    }
+
+                    // we bind events to the element that was passed
+                    el.onmouseleave = function () {
+                        // this is just the inverse of the onmouseenter
+                        if (this.nextElementSibling instanceof HTMLDivElement === true) {
+                            this.nextElementSibling.className = "";
+                        }
+                        else {
+                            this.previousElementSibling.className = "";
+                        }
+                    }
+                }
+            </script>
+        </footer>
+    </body>
+</html>
